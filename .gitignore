@@ -1,0 +1,4 @@
+denv/
+app/migrations/
+compressor/__pycache__/
+app/__pycache__/
