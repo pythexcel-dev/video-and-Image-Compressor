@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Compression App</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h1>Compression App</h1>
+      {% for message in messages %}
+        <strong>Message</strong> {{message}}
+      {% endfor %}
+      <div class="row"> 
+        <div class="column">
+          <!-- Video Compression -->
+          <div class="card mb-4">
+            <div class="card-header">Video Compression</div>
+            <div class="card-body">
+              <form action="video-compress" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="percentage">Compression Percentage:</label>
+                  <input type="number" class="form-control" id="percentage" name="percentage" min="0" max="100" required>
+                  <small class="form-text text-muted">Enter a value between 0 and 100.</small>
+                </div>
+                <div class="form-group">
+                  <label for="video-file">Video File:</label>
+                  <input type="file" class="form-control-file" id="input_file" name="video-file" accept="video/*" required>
+                  <small class="form-text text-muted">Select a video file to compress.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Compress Video</button>
+                <span style="margin-right: 15px;"></span>
+                {% if video_url %}
+                 {% load static %}
+                  <a href="{% static 'media'|add:video_url %}" onclick="window.location.href = '{% url 'home-page' %}';" class="btn btn-success download-btn" download>Download Compressed Video</a>
+                 {% endif %}
+              </form>
+            </div>
+          </div>
+        </div>
+<span style="margin-right: 15px;"></span>     
+<!-- Image Compression -->
+        <div class="column">
+          <div class="card mb-4">
+            <div class="card-header">Image Compression</div>
+            <div class="card-body">
+              <form action="image-compress" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="quality">Compression Quality:</label>
+                  <input type="number" class="form-control" id="quality" name="quality" min="0" max="100" required>
+                  <small class="form-text text-muted">Enter a value between 0 and 100.</small>
+                </div>
+                <div class="form-group">
+                  <label for="image-file">Image File:</label>
+                  <input type="file" class="form-control-file" id="image-file" name="image-file" accept="image/*" required>
+                  <small class="form-text text-muted">Select an image file to compress.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Compress Image</button>
+                <span style="margin-right: 15px;"></span>
+                {% if image_url %}
+                  {% load static %}
+                   <a href="{% static 'media'|add:image_url %}" onclick="window.location.href = '{% url 'home-page' %}';" class="btn btn-success download-btn" download>Download Compressed Image</a>
+                {% endif %}
+              </form>
+            </div>
+          </div>
+        </div> 
+    
+<!-- Payment -->
+        <div class="column">
+          <div class="card mb-4">
+            <div class="card-header">Payment</div>
+            <div class="card-body">
+              <p>Only one video or image can be compressed for free. For additional files, please make a payment of $10 per file.</p>
+              <button class="btn btn-primary">Make Payment</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+  </div>
+  <!-- Bootstrap JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <!-- Download Button Script -->
+  <script>
+    
+  </script>
+</body>
+</html>
+
