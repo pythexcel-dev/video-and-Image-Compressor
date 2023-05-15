@@ -32,9 +32,10 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Compress Video</button>
                 <span style="margin-right: 15px;"></span>
-                {% if new_video %}
-                  <a href="video-compress" onclick="setTimeout(function() { window.location.href = '{% url 'home-page' %}'; }, 1000);" class="btn btn-success download-btn">Download Compressed Video</a>
-                {% endif %}
+                {% if video_url %}
+                 {% load static %}
+                  <a href="{% static 'media'|add:video_url %}" onclick="window.location.href = '{% url 'home-page' %}';" class="btn btn-success download-btn" download>Download Compressed Video</a>
+                 {% endif %}
               </form>
             </div>
           </div>
@@ -59,9 +60,9 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Compress Image</button>
                 <span style="margin-right: 15px;"></span>
-                {% if new_image %}
-                  <a href="image-compress" onclick="setTimeout(function() { window.location.href = '{% url 'home-page' %}'; }, 1000);" class="btn btn-success download-btn">Download Compressed Image</a>
-                  
+                {% if image_url %}
+                  {% load static %}
+                   <a href="{% static 'media'|add:image_url %}" onclick="window.location.href = '{% url 'home-page' %}';" class="btn btn-success download-btn" download>Download Compressed Image</a>
                 {% endif %}
               </form>
             </div>
@@ -87,26 +88,7 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <!-- Download Button Script -->
   <script>
-    $(document).ready(function() {
-      $('.download-btn').click(function() {
-        var href = $(this).prev('form').attr('action');
-        var file = $(this).prev('form').find('input[type=file]').val().split('\\').pop();
-        var download_href = href + "?filename=" + file;
-        $(this).attr('href', download_href);
-      });
-    });    
-
-    const downloadLink = document.getElementById('download-link');
-
-    downloadLink.addEventListener('click', (event) => {
-      // prevent the link from navigating to its href
-  
-      // Perform the file download using the href link
-      // ...
-  
-      // Redirect to the home page
-      window.location.href = "{% url 'home-page' %}";
-    });
+    
   </script>
 </body>
 </html>
